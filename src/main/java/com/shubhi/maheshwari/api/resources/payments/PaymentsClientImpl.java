@@ -2,7 +2,6 @@ package com.shubhi.maheshwari.api.resources.payments;
 
 import com.shubhi.maheshwari.api.core.ClientOptions;
 import com.shubhi.maheshwari.api.core.ObjectMappers;
-import com.shubhi.maheshwari.api.types.GetPaymentsfororderResponse;
 import com.shubhi.maheshwari.api.types.PaymentsEntity;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -17,7 +16,7 @@ public final class PaymentsClientImpl implements PaymentsClient {
   }
 
   @Override
-  public GetPaymentsfororderResponse getPaymentsfororder(String orderId) {
+  public PaymentsEntity getPaymentsfororder(String orderId) {
     Request _request =
         new Request.Builder()
             .url(
@@ -34,8 +33,7 @@ public final class PaymentsClientImpl implements PaymentsClient {
     try {
       Response _response = clientOptions.httpClient().newCall(_request).execute();
       if (_response.isSuccessful()) {
-        return ObjectMappers.JSON_MAPPER.readValue(
-            _response.body().string(), GetPaymentsfororderResponse.class);
+        return ObjectMappers.JSON_MAPPER.readValue(_response.body().string(), PaymentsEntity.class);
       }
       throw new RuntimeException();
     } catch (Exception e) {
